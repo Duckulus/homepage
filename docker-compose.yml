@@ -1,0 +1,12 @@
+version: "3.7"
+services:
+  floppa:
+    image: duckulus/homepage
+    build: .
+    platform: ${DOCKER_PLATFORM}
+    container_name: homepage
+    ports:
+      - "8080:8080"
+    env_file:
+      - .env
+    restart: unless-stopped

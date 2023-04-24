@@ -1,0 +1,191 @@
+@font-face {
+    font-family: Monocraft;
+    src: url("./assets/Monocraft.ttf");
+}
+
+body {
+    font-family: "Monocraft", serif;
+    background-color: #573280;
+    color: #EFF8E2;
+}
+
+textarea {
+    margin-top: 5px;
+    font-family: 'Inter', sans-serif;
+    font-size: 20px;
+    background: black;
+    color: lawngreen;
+    border-radius: 10px;
+}
+
+.layout {
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 50em;
+    font-size: 22px;
+}
+
+a {
+    color: #CECFC7;
+}
+
+#messages {
+    border: black solid 2px;
+    resize: none;
+    height: 50vh;
+    width: 99%;
+}
+
+.input-group {
+    display: flex;
+    flex-direction: row;
+    margin: 0 auto;
+    justify-content: center;
+    max-width: 99%;
+}
+
+.submit-button {
+    font-size: 17px;
+    padding: 0.5em 2em;
+    border: transparent;
+    box-shadow: 0 0px 16px 0 rgba(0, 0, 0, 0.24);
+    background: #2E2E2E;
+    border-radius: 0 10px 10px 0;
+}
+
+.submit-button:hover {
+    transition: 0.3s;
+    background: #d4d4c7;
+    cursor: pointer;
+}
+
+.submit-button:active {
+    transform: translate(0em, 0.2em);
+}
+
+.submit-button span {
+    font-weight: 800;
+    letter-spacing: 2px;
+    background: #d4d4c7;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    transition: 0.3s;
+}
+
+.submit-button:hover span {
+    background: black;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    transition: 0.3s;
+}
+
+#messageInput {
+    background-color: #2E2E2E;
+    border-radius: 10px 0 0 10px;
+    border: none;
+    width: 500px;
+    padding-left: 8px;
+    color: white;
+    font-size: 14px;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+
+::placeholder {
+    color: rgb(184, 184, 184);
+}
+
+.input-group:focus-within #messageInput,
+.input-group:focus-within .submit-button {
+    outline: black 1px solid;
+}
+
+.projects {
+    display: flex;
+    flex-direction: row;
+    flex-flow: wrap;
+    justify-content: center;
+}
+
+.card {
+    width: 17em;
+    height: auto;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    margin: 30px;
+    background: #171717;
+    transition: 1s ease-in-out;
+    border-radius: 20px;
+    display: flex;
+    flex-direction: column;
+}
+
+.card span {
+    font-weight: bold;
+    color: white;
+    text-align: center;
+    display: block;
+    font-size: 1em;
+}
+
+.card .info {
+    font-weight: 400;
+    color: white;
+    display: block;
+    min-height: 100px;
+    text-align: center;
+    font-size: 0.72em;
+    margin: 1em;
+}
+
+.project-language {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 4px;
+    margin: 8px 0;
+}
+
+.project-languages {
+    display: flex;
+    justify-content: center;
+    gap: 10px
+}
+
+.project-language a {
+    font-size: 15px;
+}
+
+.language-circle {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    display: inline-block;
+}
+
+
+.card a {
+    color: white;
+    transition: .4s ease-in-out;
+}
+
+.card button {
+    padding: 0.8em 1.7em;
+    width: 25%;
+    display: block;
+    align-items: center;
+    margin: auto auto 6px;
+    border-radius: 25px;
+    border: none;
+    font-weight: bold;
+    background: #ffffff;
+    color: rgb(0, 0, 0);
+    transition: .3s ease-in-out;
+
+}
+
+.card button:hover {
+    background: #573280;
+    color: white;
+    cursor: pointer;
+    width: 60%;
+}

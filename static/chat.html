@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter&display=swap" rel="stylesheet">
+
+    <title>Chat</title>
+</head>
+<body>
+<script>
+    const ws = new WebSocket(((window.location.protocol === "https:") ? "wss://" : "ws://") + window.location.host + "/chat")
+
+    ws.onopen = () => {
+        document.getElementById("messages").value = "Established Connection\n"
+    }
+
+    ws.onmessage = (event) => {
+        console.log(event.data)
+        const message = JSON.parse(event.data)
+        const addMessage = (msg) => {
+            const textarea = document.getElementById("messages")
+            textarea.value += `${msg.sender}: ${msg.text}\n`
+            textarea.scrollTop = textarea.scrollHeight;
+            document.getElementById("userCount").innerText = `${msg.users} ${msg.users === 1 ? "User" : "Users"} online`
+        }
+        if (Array.isArray(message)) {
+            message.forEach(addMessage)
+        } else {
+            addMessage(message)
+        }
+
+    }
+
+    ws.onclose = () => {
+        console.log("Connection closed")
+    }
+
+    ws.onerror = () => {
+        console.log(`WebSocket error`)
+    }
+
+    const onMessage = (event) => {
+        event.preventDefault()
+        const message = document.getElementById("messageInput").value
+        if (message.length !== 0) {
+            ws.send(document.getElementById("messageInput").value)
+            document.getElementById("messageInput").value = ""
+        }
+    }
+</script>
+<nav>
+    <a href="/">~/</a><a href="/chat.html">chat/</a>
+</nav>
+<div class="layout">
+    <h1>Chat</h1>
+    <div class="chat">
+        <label for="messages">Messages</label>
+        <br/>
+        <textarea readonly id="messages"></textarea>
+        <p id="userCount"></p>
+        <form class="form" onsubmit="onMessage(event)">
+            <br/>
+            <div class="input-group">
+                <input id="messageInput" placeholder="Enter message" type="text" autocomplete="off">
+                <button type="submit" class="submit-button"><span>Send</span></button>
+            </div>
+        </form>
+    </div>
+</div>
+
+</body>
+</html>
