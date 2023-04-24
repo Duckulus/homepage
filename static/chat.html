@@ -5,16 +5,20 @@
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta property="og:title" content="Duckulus' Homepage">
+    <meta property="og:url" content="https://duckul.us/chat">
+    <meta property="og:description" content="Anonymous Chat"/>
+    <meta property="theme-color" content="#573280">
+    <meta property="og:image" content="/assets/duck.png"/>
     <link rel="stylesheet" href="styles.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter&display=swap" rel="stylesheet">
-
     <title>Chat</title>
 </head>
 <body>
 <script>
-    const ws = new WebSocket(((window.location.protocol === "https:") ? "wss://" : "ws://") + window.location.host + "/chat")
+    const ws = new WebSocket(((window.location.protocol === "https:") ? "wss://" : "ws://") + window.location.host + "/ws")
 
     ws.onopen = () => {
         document.getElementById("messages").value = "Established Connection\n"
@@ -55,7 +59,7 @@
     }
 </script>
 <nav>
-    <a href="/">~/</a><a href="/chat.html">chat/</a>
+    <a href="/">~/</a><a href="/chat">chat/</a>
 </nav>
 <div class="layout">
     <h1>Chat</h1>

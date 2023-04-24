@@ -41,7 +41,7 @@ fun Application.configureSockets() {
             messages.put(message)
         }
 
-        webSocket("/chat") {
+        webSocket("/ws") {
             connections.clear()
             println(connections.size)
             val connection = Connection(this)

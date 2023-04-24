@@ -7,6 +7,8 @@ import java.io.File
 
 fun Application.configureRouting() {
     routing {
-        staticFiles("/", File("./static"))
+        staticFiles("/", File("./static")) {
+            extensions("html", "htm")
+        }
     }
 }
