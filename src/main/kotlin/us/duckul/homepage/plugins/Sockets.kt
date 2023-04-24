@@ -42,7 +42,6 @@ fun Application.configureSockets() {
         }
 
         webSocket("/ws") {
-            connections.clear()
             println(connections.size)
             val connection = Connection(this)
             try {
