@@ -179,11 +179,12 @@ a {
     font-weight: bold;
     background: #ffffff;
     color: rgb(0, 0, 0);
-    transition: .3s ease-in-out;
+    transition: .6s;
 
 }
 
 .card button:hover {
+    transition: .2s;
     background: #573280;
     color: white;
     cursor: pointer;

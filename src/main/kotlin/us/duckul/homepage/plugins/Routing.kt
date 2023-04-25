@@ -6,9 +6,11 @@ import io.ktor.server.routing.*
 import java.io.File
 
 fun Application.configureRouting() {
-    routing {
-        staticFiles("/", File("./static")) {
-            extensions("html", "htm")
+    install(IgnoreTrailingSlash) {
+        routing {
+            staticFiles("/", File("./static")) {
+                extensions("html", "htm")
+            }
         }
     }
 }
