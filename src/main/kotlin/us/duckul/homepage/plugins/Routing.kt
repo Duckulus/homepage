@@ -17,7 +17,7 @@ fun Application.configureRouting() {
             call.respondText("Hello, world!")
         }
         get("/ip") {
-            call.respondText(call.request.origin.remoteHost)
+            call.respondText(call.request.origin.remoteAddress)
         }
         get("/time") {
             call.respondText(System.currentTimeMillis().toString())
