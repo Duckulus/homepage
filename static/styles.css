@@ -25,11 +25,9 @@ body {
 footer {
     font-family: Arial, sans-serif;
     overflow: hidden;
+    position: fixed;
     bottom: 0;
-    position: absolute;
-    left: 50%;
-    transform: translateX(-50%);
-
+    margin: 5px;
 }
 .navbar a {
     text-decoration: none;
