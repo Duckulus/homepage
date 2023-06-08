@@ -49,7 +49,7 @@ fun Application.configureRouting() {
                             ":",
                             "\\:"
                         )
-                    }':fontcolor=yellow:fontsize=96:x=(1150-(text_w/2)):y=600:enable='gte(t,3.75)'," +
+                    }':fontcolor=yellow:fontsize=64:x=(1150-(text_w/2)):y=600:enable='gte(t,3.75)'," +
                             "drawtext=fontfile=./garfield/gilligan.ttf:text='$location':fontcolor=yellow:fontsize=64:x=(1150-(text_w/2)):y=700:enable='gte(t,3.75)'"
                 )
                 .setStrict(FFmpegBuilder.Strict.EXPERIMENTAL)
