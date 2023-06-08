@@ -22,6 +22,7 @@ repositories {
 }
 
 dependencies {
+    implementation("net.bramp.ffmpeg:ffmpeg:0.7.0")
     implementation("io.ktor:ktor-server-core-jvm:$ktor_version")
     implementation("io.ktor:ktor-server-websockets-jvm:$ktor_version")
     implementation("io.ktor:ktor-server-content-negotiation-jvm:$ktor_version")
