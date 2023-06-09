@@ -43,23 +43,27 @@ fun Application.configureRouting() {
                 .overrideOutputFiles(true)
                 .addOutput(videoName)
                 .setAudioCodec("aac")
+                .setVideoCodec("h264_v4l2m2m")
                 .setVideoFilter(
                     "drawtext=fontfile=./garfield/gilligan.ttf:text='${
                         ip.replace(
                             ":",
                             "\\:"
                         )
-                    }':fontcolor=yellow:fontsize=64:x=(1150-(text_w/2)):y=600:enable='gte(t,3.75)'," +
-                            "drawtext=fontfile=./garfield/gilligan.ttf:text='$location':fontcolor=yellow:fontsize=64:x=(1150-(text_w/2)):y=700:enable='gte(t,3.75)'"
+                    }':fontcolor=yellow:fontsize=64:x=(1150-(text_w/2)):y=600:enable='gte(t,3.75)':shadowx=2:shadowy=2," +
+                            "drawtext=fontfile=./garfield/gilligan.ttf:text='$location':fontcolor=yellow:fontsize=64:x=(1150-(text_w/2)):y=700:enable='gte(t,3.75)':shadowx=2:shadowy=2"
                 )
                 .setStrict(FFmpegBuilder.Strict.EXPERIMENTAL)
                 .done()
 
-            val executor = FFmpegExecutor(ffmpeg, ffprobe)
-            executor.createJob(ffmpegBuilder).run()
+            try {
+                val executor = FFmpegExecutor(ffmpeg, ffprobe)
+                executor.createJob(ffmpegBuilder).run()
 
-            call.respondFile(File("./garfield/$videoID.mp4"))
-            File(videoName).delete()
+                call.respondFile(File("./garfield/$videoID.mp4"))
+            } finally {
+                File(videoName).delete()
+            }
         }
     }
     install(IgnoreTrailingSlash) {
