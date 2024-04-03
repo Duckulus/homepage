@@ -1,86 +1,95 @@
 <!doctype html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <meta name="description" content="Anonymous Chat">
-    <meta property="og:title" content="Duckulus' Homepage">
-    <meta property="og:url" content="https://duckul.us/chat">
-    <meta property="og:description" content="Anonymous Chat"/>
-    <meta property="theme-color" content="#573280">
-    <meta property="og:image" content="/assets/duck.png"/>
-    <link rel="stylesheet" href="/styles.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter&display=swap" rel="stylesheet">
-    <script src="banner.js"></script>
-    <title>Chat</title>
+  <meta charset="UTF-8">
+  <meta name="viewport"
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <meta name="description" content="Anonymous Chat">
+  <meta property="og:title" content="Duckulus' Homepage">
+  <meta property="og:url" content="https://duckul.us/chat">
+  <meta property="og:description" content="Anonymous Chat"/>
+  <meta property="theme-color" content="#573280">
+  <meta property="og:image" content="/assets/duck.png"/>
+  <link rel="stylesheet" href="/styles.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter&display=swap" rel="stylesheet">
+  <script src="banner.js"></script>
+  <title>Chat</title>
 </head>
 <body>
 <script>
-    const ws = new WebSocket(((window.location.protocol === "https:") ? "wss://" : "ws://") + window.location.host + "/ws")
+  const ws = new WebSocket(
+      ((window.location.protocol === "https:") ? "wss://" : "ws://") + window.location.host + "/ws")
 
-    ws.onopen = () => {
-        document.getElementById("messages").value = "Established Connection\n"
+  ws.onopen = () => {
+    document.getElementById("messages").value = "Established Connection\n"
+  }
+
+  ws.onmessage = (event) => {
+    console.log(event.data)
+    const message = JSON.parse(event.data)
+    const addMessage = (msg) => {
+      if (msg.text.length !== 0) {
+        const textarea = document.getElementById("messages")
+        textarea.value += `${msg.sender}: ${msg.text}\n`
+        textarea.scrollTop = textarea.scrollHeight;
+      }
+      document.getElementById("userCount").innerText = `${msg.users} ${msg.users === 1 ? "User"
+          : "Users"} online`
     }
-
-    ws.onmessage = (event) => {
-        console.log(event.data)
-        const message = JSON.parse(event.data)
-        const addMessage = (msg) => {
-            const textarea = document.getElementById("messages")
-            textarea.value += `${msg.sender}: ${msg.text}\n`
-            textarea.scrollTop = textarea.scrollHeight;
-            document.getElementById("userCount").innerText = `${msg.users} ${msg.users === 1 ? "User" : "Users"} online`
-        }
-        if (Array.isArray(message)) {
-            message.forEach(addMessage)
-        } else {
-            addMessage(message)
-        }
-
+    if (Array.isArray(message)) {
+      message.forEach(addMessage)
+    } else {
+      addMessage(message)
     }
+  }
 
-    ws.onclose = () => {
-        console.log("Connection closed")
-    }
+  ws.onclose = () => {
+    console.log("Connection closed")
+  }
 
-    ws.onerror = () => {
-        console.log(`WebSocket error`)
-    }
+  ws.onerror = () => {
+    console.log(`WebSocket error`)
+  }
 
-    const onMessage = (event) => {
-        event.preventDefault()
-        const message = document.getElementById("messageInput").value
-        if (message.length !== 0) {
-            ws.send(document.getElementById("messageInput").value)
-            document.getElementById("messageInput").value = ""
-        }
+  const onMessage = (event) => {
+    event.preventDefault()
+    const message = document.getElementById("messageInput").value
+    if (message.length !== 0) {
+      const username = document.getElementById("usernameInput").value
+      ws.send(JSON.stringify({
+        username: username,
+        message: message
+      }))
+      document.getElementById("messageInput").value = ""
     }
+  }
 </script>
 <nav class="navbar">
-    <a href="/">duckul.us</a>
+  <a href="/">duckul.us</a>
 </nav>
 <section class="layout">
-    <section>
-        <a href="/">~/</a><a href="/chat">chat/</a>
-    </section>
-    <h1>Chat</h1>
-    <div class="chat">
-        <label for="messages">Messages</label>
-        <br/>
-        <textarea readonly id="messages"></textarea>
-        <p id="userCount"></p>
-        <form class="form" onsubmit="onMessage(event)">
-            <br/>
-            <div class="input-group">
-                <input id="messageInput" maxlength="1000" placeholder="Enter message" type="text" autocomplete="off">
-                <button type="submit" class="submit-button"><span>Send</span></button>
-            </div>
-        </form>
-    </div>
+  <section>
+    <a href="/">~/</a><a href="/chat">chat/</a>
+  </section>
+  <h1>Chat</h1>
+  <div class="chat">
+    <label for="messages">Messages</label>
+    <br/>
+    <textarea readonly id="messages"></textarea>
+    <p id="userCount"></p>
+    <form class="messages-form" onsubmit="onMessage(event)">
+      <br/>
+      <input id="usernameInput" type="text" autocomplete="off" placeholder="Custom Username">
+      <div class="input-group">
+        <input id="messageInput" maxlength="1000" placeholder="Enter message" type="text"
+               autocomplete="off">
+        <button type="submit" class="submit-button"><span>Send</span></button>
+      </div>
+    </form>
+  </div>
 </section>
 <footer>&copy; 2023, Duckulus</footer>
 </body>
